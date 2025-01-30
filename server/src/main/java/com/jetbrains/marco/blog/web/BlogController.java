@@ -1,8 +1,6 @@
 package com.jetbrains.marco.blog.web;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,17 +9,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.jetbrains.marco.blog.model.Blog;
+import com.jetbrains.marco.blog.service.BlogService;
 
 @RestController
+@RequestMapping("/api")
 public class BlogController {
 
-    private Map<Integer, Blog> db = new HashMap<>(){{
-        put(1, new Blog(1, "First Blog", "This is my first blog"));
-    }};
+    private final BlogService blogService;
+
+    public BlogController(BlogService blogService) {
+        this.blogService = blogService;
+    }
 
     @GetMapping("/")
     public String hello(){
@@ -30,12 +33,12 @@ public class BlogController {
 
     @GetMapping("/blog")
     public Collection<Blog> get(){
-        return db.values();
+        return blogService.get();
     }
 
     @GetMapping("/blog/{id}")
     public Blog get(@PathVariable Integer id){
-        Blog blog = db.get(id);
+        Blog blog = blogService.get(id);
         if(blog == null){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Blog not found");
         }
@@ -44,16 +47,12 @@ public class BlogController {
 
     @DeleteMapping("/blog/{id}")
     public void delete(@PathVariable Integer id){
-        Blog blog = db.remove(id);
-        if(blog == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Blog not found");
-        }
+        blogService.remove(id);
     }
 
     @PostMapping("/blog")
     public ResponseEntity<Blog> create(@RequestBody Blog blog) {
-        blog.setId(db.size() + 1);
-        db.put(blog.getId(), blog);
+        blogService.save(blog.getId(), blog);
         return ResponseEntity.ok(blog);
     }
     
