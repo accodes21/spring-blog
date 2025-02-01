@@ -1,7 +1,10 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+main{
   text-align: center;
 }
 
@@ -10,11 +13,13 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  margin-bottom: 5rem;
 }
 
 .card{
   padding: 1rem;
   border: 1px solid #ccc;
+  border-radius: 15px;
   width: 10rem;
 }
 
