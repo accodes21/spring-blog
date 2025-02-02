@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Upload from "./components/Upload";
-import BlogDetails from "./components/BlogDetails"; // Import BlogDetails component
+import BlogDetails from "./components/BlogDetails";
 
 function App() {
   const [blogData, setBlogData] = useState([]);
@@ -12,7 +12,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {
-          setBlogData(data); // Ensure it's an array before setting state
+          setBlogData(data);
         } else {
           console.error("Invalid data format:", data);
         }
@@ -46,13 +46,14 @@ function App() {
                   <p>No blogs available.</p>
                 )}
               </div>
-              <Upload />
+              <Link to={"/upload"}>Upload Your Blogs</Link>
             </main>
           }
         />
 
         {/* Dynamic Blog Details Route */}
         <Route path="/blog/:id" element={<BlogDetails />} />
+        <Route path="/upload" element={<Upload />} />
       </Routes>
     </Router>
   );

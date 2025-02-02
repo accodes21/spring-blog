@@ -16,7 +16,7 @@ const Upload = () => {
       .then((response) => response.json())
       .then((data) => {
         setBlogdata(data);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error:", error);
