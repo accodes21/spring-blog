@@ -1,42 +1,32 @@
 package com.jetbrains.marco.blog.service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.jetbrains.marco.blog.model.Blog;
+import com.jetbrains.marco.blog.repository.BlogRepository;
 
 @Service
 public class BlogService {
-    private Map<Integer, Blog> db = new HashMap<>(){{
-        put(1, new Blog(1, "First Blog", "This is my first blog"));
-    }};
+    
+    private final BlogRepository blogRepository;
 
-    public Collection<Blog> get(){
-        return db.values();
+    public BlogService(BlogRepository blogRepository) {
+        this.blogRepository = blogRepository;
+    }
+
+    public Iterable<Blog> get(){
+        return blogRepository.findAll();
     }
 
     public Blog get(Integer id) {
-        Blog blog = db.get(id);
-        if(blog == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Blog not found");
-        }
-        return blog;
+        return blogRepository.findById(id).orElse(null);
     }
 
     public void remove(Integer id) {
-        Blog blog = db.remove(id);
-        if(blog == null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Blog not found");
-        }
+        blogRepository.deleteById(id);
     }
 
-    public void save(Integer id, Blog blog) {
-        blog.setId(db.size() + 1);
-        db.put(id, blog);
+    public Blog save(Blog blog) {
+        return blogRepository.save(blog);
     }
 }
