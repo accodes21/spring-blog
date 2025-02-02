@@ -1,7 +1,5 @@
 package com.jetbrains.marco.blog.web;
 
-import java.util.Collection;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,7 +30,7 @@ public class BlogController {
     }
 
     @GetMapping("/blog")
-    public Collection<Blog> get(){
+    public Iterable<Blog> get(){
         return blogService.get();
     }
 
@@ -52,8 +50,8 @@ public class BlogController {
 
     @PostMapping("/blog")
     public ResponseEntity<Blog> create(@RequestBody Blog blog) {
-        blogService.save(blog.getId(), blog);
-        return ResponseEntity.ok(blog);
+        Blog savedBlog = blogService.save(blog);
+        return ResponseEntity.ok(savedBlog);
     }
     
 }

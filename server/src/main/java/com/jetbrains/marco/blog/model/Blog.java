@@ -5,7 +5,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import jakarta.validation.constraints.NotEmpty;
 
-@Table("blogs")
+@Table("BLOG")
 public class Blog {
 
     @Id
@@ -18,11 +18,11 @@ public class Blog {
     public Blog() {
     }
 
-    public Blog(int id, String title, String content) {
-        this.id = id;
-        this.content = content;
-        this.title = title;
-    }
+    // public Blog(int id, String title, String content) {
+    //     this.id = id;
+    //     this.content = content;
+    //     this.title = title;
+    // }
 
     public Integer getId() {
         return id;
