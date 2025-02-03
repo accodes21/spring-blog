@@ -8,7 +8,7 @@ function App() {
   const [blogData, setBlogData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/blog")
+    fetch("https://spring-blog-latest-devk.onrender.com/api/blog")
       .then((response) => response.json())
       .then((data) => {
         if (Array.isArray(data)) {

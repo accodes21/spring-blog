@@ -6,7 +6,7 @@ function BlogDetails() {
   const [blog, setBlog] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/blog/${id}`)
+    fetch(`https://spring-blog-latest-devk.onrender.com/api/blog/${id}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.id) {

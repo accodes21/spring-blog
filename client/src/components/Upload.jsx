@@ -6,7 +6,7 @@ const Upload = () => {
   const [blogdata, setBlogdata] = useState([]);
 
   const uploadBlog = () => {
-    fetch("http://localhost:8080/api/blog", {
+    fetch("https://spring-blog-latest-devk.onrender.com/api/blog", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -16,7 +16,6 @@ const Upload = () => {
       .then((response) => response.json())
       .then((data) => {
         setBlogdata(data);
-        window.location.reload();
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -25,7 +24,7 @@ const Upload = () => {
 
   return (
     <>
-      <h2>Blog Upload</h2>
+      <h1>Blog Upload</h1>
       <div className="upload">
         <input
           type="text"
@@ -44,6 +43,9 @@ const Upload = () => {
           Upload
         </button>
       </div>
+      <p>
+        <a href="/">Home</a>
+      </p>
     </>
   );
 };
